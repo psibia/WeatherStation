@@ -4,21 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WeatherStation"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Погодная станция" Height="200" Width="300">
-    <Grid Margin="10">
+        Title="Погодная станция" Height="300" Width="500">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Температура:"/>
-        <TextBlock Grid.Row="0" Text="{Binding Temperature}" Margin="100,0,0,0"/>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="1" Text="Влажность:"/>
-        <TextBlock Grid.Row="1" Text="{Binding Humidity}" Margin="100,0,0,0"/>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Температура" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <lvc:AngularGauge Grid.Row="1" FromValue="0" ToValue="50" Value="{Binding Temperature}" Width="150" Height="150"/>
+            </Grid>
 
-        <Button Grid.Row="2" Content="Отправить в телеграм" Command="{Binding SendTemperatureCommand}" Margin="0,10,0,0"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Влажность" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <lvc:AngularGauge Grid.Row="1" FromValue="0" ToValue="100" Value="{Binding Humidity}" Width="150" Height="150"/>
+            </Grid>
+        </Grid>
+
+        <Button Grid.Row="1" Content="Отправить в телеграм" Command="{Binding SendTemperatureCommand}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </Window>
